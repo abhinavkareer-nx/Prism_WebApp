@@ -37,7 +37,7 @@ const PC_IP = process.env.PC_IP;
 
 webPush.setVapidDetails('mailto:abhinav.kareer@nutanix.com', publicVapidKey, privateVapidKey);
 
-const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
+// const redirectToHTTPS = require('express-http-to-https').redirectToHTTPS;
 
 // CODELAB: Change this to add a delay (ms) before the server responds.
 const PollAlerts = 5000;
@@ -49,13 +49,13 @@ const PollAlerts = 5000;
  */
 function startServer() {
   const app = express();
-  const port = 8000;
+  const port = process.env.port || 80;
 
   // app.use(bodyParser.json());
   // app.use(poller);
 
   // Redirect HTTP to HTTPS,
-   app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
+  //  app.use(redirectToHTTPS([/localhost:(\d{4})/], [], 301));
 
    app.use(
     '/api',
@@ -94,19 +94,19 @@ function startServer() {
   app.use(express.static('public'));
 
   // Start the server
-  return   https.createServer({
-    key: fs.readFileSync('server.key'),
-    cert: fs.readFileSync('server.cert')
-  }, app).listen(port, () => {
-    // eslint-disable-next-line no-console
-    console.log('Local DevServer Started on port :'+port);
-  });
-
-  // return app.listen('8000', () => {
-  //   getAlerts();
+  // return   https.createServer({
+  //   key: fs.readFileSync('server.key'),
+  //   cert: fs.readFileSync('server.cert')
+  // }, app).listen(port, () => {
   //   // eslint-disable-next-line no-console
-  //   console.log('Local DevServer Started on port 8000...');
+  //   console.log('Local DevServer Started on port :'+port);
   // });
+
+  return app.listen(port, () => {
+    getAlerts();
+    // eslint-disable-next-line no-console
+    console.log('Local DevServer Started on port '+port);
+  });
 
 }
 
