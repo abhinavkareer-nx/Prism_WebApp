@@ -9,7 +9,7 @@ module.exports = {
     filename: 'bundle.js',
   },
   devtool: 'sourcemap',
-  watch: true,
+  // watch: true,
   module: {
     loaders: [
       {
