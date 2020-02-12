@@ -19,7 +19,7 @@
     "http-proxy-middleware": "^0.20.0"
   },
   "engines": {
-    "node": "8.x"
+    "node": "10.14.1"
   },
   "repository": {
     "type": "git",
